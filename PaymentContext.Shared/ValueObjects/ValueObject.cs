@@ -1,8 +1,9 @@
 using System;
+using PaymentContext.Shared.Notifications;
 
 namespace PaymentContext.Shared.ValueObjects
 {
-    public abstract class ValueObject
+    public abstract class ValueObject : Notifiable
     {
     }
 }
