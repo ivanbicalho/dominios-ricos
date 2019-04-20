@@ -1,9 +1,12 @@
 using System;
 using PaymentContext.Domain.Enums;
+using PaymentContext.Shared.Commands;
+using PaymentContext.Shared.Notifications;
+using PaymentContext.Shared.Validations;
 
 namespace PaymentContext.Domain.Commands
 {
-    public class CreateCreditCardSubscriptionCommand
+    public class CreateCreditCardSubscriptionCommand : Notifiable, ICommand
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -13,7 +16,7 @@ namespace PaymentContext.Domain.Commands
         public string CardHolderName { get; private set; }
         public string CardNumber { get; private set; }
         public string LastTransactionNumber { get; private set; }
-        
+
         public string PaymentNumber { get; set; }
         public DateTime PaidDate { get; set; }
         public DateTime ExpireDate { get; set; }
@@ -30,5 +33,15 @@ namespace PaymentContext.Domain.Commands
         public string State { get; set; }
         public string Country { get; set; }
         public string ZipCode { get; set; }
+
+        public void Validate()
+        {
+            AddNotifications(new Contract()
+                .Requires()
+                .HasMinLen(FirstName, 3, nameof(FirstName), "Nome deve conter pelo menos 3 caracteres")
+                .HasMinLen(LastName, 3, nameof(LastName), "Sobrenome deve conter pelo menos 3 caracteres"));
+
+            // ...
+        }
     }
 }

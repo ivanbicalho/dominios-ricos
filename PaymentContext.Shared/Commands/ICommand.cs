@@ -4,7 +4,7 @@ namespace PaymentContext.Shared.Commands
     {
         // Fail Fast Validations
         // Commands também podem ser Notifiables
-        
+                        
         void Validate();
     }
 }
